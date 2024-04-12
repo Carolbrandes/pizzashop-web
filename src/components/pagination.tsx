@@ -1,8 +1,8 @@
 import {
-    ChevronLeft,
-    ChevronRight,
-    ChevronsLeft,
-    ChevronsRight,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
 } from 'lucide-react'
 
 import { Button } from './ui/button'
@@ -33,22 +33,22 @@ export function Pagination({
 
         <div className="flex items-center gap-2">
           <Button variant="outline" className="h-8 w-8 p-4">
-            <ChevronsLeft color="#fff" className="h-4 w-4" />
+            <ChevronsLeft color="#fff" className="absolute h-4 w-4" />
             <span className="sr-only">Primeira página</span>
           </Button>
 
           <Button variant="outline" className="h-8 w-8 p-4">
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="absolute h-4 w-4" />
             <span className="sr-only">Página anterior</span>
           </Button>
 
           <Button variant="outline" className="h-8 w-8 p-4">
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="absolute h-4 w-4" />
             <span className="sr-only">Próxima página</span>
           </Button>
 
           <Button variant="outline" className="h-8 w-8 p-4">
-            <ChevronsRight className="h-4 w-4" />
+            <ChevronsRight className="absolute h-4 w-4" />
             <span className="sr-only">Última página</span>
           </Button>
         </div>
