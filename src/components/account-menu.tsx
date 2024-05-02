@@ -21,7 +21,7 @@ export function AccountMenu() {
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
     queryKey: ["profile"], //* essa key identifica a requisicao, entao se em outro componente eu fizer essa mesma query, ele nao vai fazer a chamada de novo.
     queryFn: getProfile,
-    staleTime: Infinity, //* nao vai recarregar os dados qd usuario sai e da foco na pagina
+    staleTime: Infinity,
   });
 
   const { data: managedRestaurant, isLoading: isLoadingManagedRestaurant } =
