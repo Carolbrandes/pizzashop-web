@@ -1,18 +1,24 @@
-import { Helmet } from 'react-helmet-async'
+import { Helmet } from "react-helmet-async";
 
-import { Pagination } from '@/components/pagination'
+import { Pagination } from "@/components/pagination";
 import {
   Table,
   TableBody,
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from "@/components/ui/table";
 
-import { OrderTableFilters } from './order-table-filters'
-import { OrderTableRow } from './order-table-row'
+import { getOrders } from "@/api/get-orders";
+import { useQuery } from "@tanstack/react-query";
+import { OrderTableFilters } from "./order-table-filters";
+import { OrderTableRow } from "./order-table-row";
 
 export function Orders() {
+  const { data: result } = useQuery({
+    queryKey: ["orders"],
+    queryFn: getOrders,
+  });
   return (
     <>
       <Helmet title="Pedidos" />
@@ -40,9 +46,10 @@ export function Orders() {
             </TableHeader>
 
             <TableBody>
-              {Array.from({ length: 10 }).map((_, i) => (
-                <OrderTableRow key={i} />
-              ))}
+              {result &&
+                result.orders.map((order) => (
+                  <OrderTableRow key={order.orderId} order={order} />
+                ))}
             </TableBody>
           </Table>
         </div>
@@ -50,5 +57,5 @@ export function Orders() {
         <Pagination pageIndex={0} totalCount={105} perPage={10} />
       </div>
     </>
-  )
+  );
 }
