@@ -50,7 +50,7 @@ export function Pagination({
             className="h-8 w-8 p-4"
             disabled={pageIndex === 0}
           >
-            <ChevronRight className="absolute h-4 w-4" />
+            <ChevronLeft className="absolute h-4 w-4" />
             <span className="sr-only">Página anterior</span>
           </Button>
 
@@ -60,7 +60,8 @@ export function Pagination({
             className="h-8 w-8 p-4"
             disabled={pages <= pageIndex + 1}
           >
-            <ChevronLeft className="absolute h-4 w-4" />
+            <ChevronRight className="absolute h-4 w-4" />
+
             <span className="sr-only">Próxima página</span>
           </Button>
 
