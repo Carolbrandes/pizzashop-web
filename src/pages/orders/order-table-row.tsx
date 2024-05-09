@@ -7,6 +7,9 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { OrderStatus } from "@/components/order-status";
 import { OrderDetails } from "./order-details";
 
+import { cancelOrder } from "@/api/cancel-order";
+import { GetOrdersResponse } from "@/api/get-orders";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useState } from "react";
@@ -23,6 +26,37 @@ export interface OrderTableRowProps {
 
 export function OrderTableRow({ order }: OrderTableRowProps) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const { mutateAsync: cancelOrderFn } = useMutation({
+    mutationFn: cancelOrder,
+    async onSuccess(_, { orderId }) {
+      //* getQueriesData: usado pq nao existe uma unica chave para lista de pedidos
+      //* esse cod percorre todas as lista carregadas, sendo as que estao no cache, filtradas, paginadas
+      const ordersListCache = queryClient.getQueriesData<GetOrdersResponse>({
+        queryKey: ["orders"],
+      });
+
+      ordersListCache.forEach(([cacheKey, cacheData]) => {
+        if (!cacheData) {
+          return;
+        }
+
+        queryClient.setQueryData<GetOrdersResponse>(cacheKey, {
+          ...cacheData,
+
+          orders: cacheData.orders.map((order) => {
+            if (order.orderId === orderId) {
+              return { ...order, status: "canceled" };
+            }
+
+            return order;
+          }),
+        });
+      });
+    },
+  });
   return (
     <TableRow>
       <TableCell>
@@ -64,7 +98,13 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
         </Button>
       </TableCell>
       <TableCell>
-        <Button variant="outline" size="xs">
+        {/* se o order.status nao estiver nos status processing e pending vai estar disabled */}
+        <Button
+          onClick={() => cancelOrderFn({ orderId: order.orderId })}
+          disabled={!["pending", "processing"].includes(order.status)}
+          variant="outline"
+          size="xs"
+        >
           <X className="mr-2 h-3 w-3" />
           Cancelar
         </Button>
