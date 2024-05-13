@@ -1,41 +1,46 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from "react-router-dom";
 
-import { NotFound } from './pages/404'
-import { AppLayout } from './pages/_layouts/app'
-import { AuthLayout } from './pages/_layouts/auth'
-import { Dashboard } from './pages/app/dashboard/dashboard'
-import { SignIn } from './pages/auth/sign-in'
-import { SignUp } from './pages/auth/sign-up'
-import { Orders } from './pages/orders/orders'
+import { NotFound } from "./pages/404";
+import { AppLayout } from "./pages/_layouts/app";
+import { AuthLayout } from "./pages/_layouts/auth";
+import { Dashboard } from "./pages/app/dashboard/dashboard";
+import { SignIn } from "./pages/auth/sign-in";
+import { SignUp } from "./pages/auth/sign-up";
+import { ErrorComp } from "./pages/error";
+import { Orders } from "./pages/orders/orders";
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <AppLayout />,
-    errorElement: <NotFound />,
+    errorElement: <ErrorComp />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Dashboard />,
       },
       {
-        path: '/orders',
+        path: "/orders",
         element: <Orders />,
       },
     ],
   },
   {
-    path: '/',
+    path: "/",
     element: <AuthLayout />,
     children: [
       {
-        path: '/sign-in',
+        path: "/sign-in",
         element: <SignIn />,
       },
       {
-        path: '/sign-up',
+        path: "/sign-up",
         element: <SignUp />,
       },
     ],
   },
-])
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+]);
