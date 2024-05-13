@@ -15,6 +15,7 @@ import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 import { OrderTableFilters } from "./order-table-filters";
 import { OrderTableRow } from "./order-table-row";
+import { OrderTableSkeleton } from "./order-table-skeleton";
 
 export function Orders() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,7 +30,7 @@ export function Orders() {
     .parse(searchParams.get("page") ?? "1"); //* se a pagina q estive na url for 1 ou pegar o 1 padrao, o pageIndex vai ser zero
   //* ex: http://localhost:5174/orders?page=1
 
-  const { data: result } = useQuery({
+  const { data: result, isLoading: isLoadingOrders } = useQuery({
     queryKey: ["orders", pageIndex, orderId, customerName, status],
     queryFn: () =>
       getOrders({
@@ -74,6 +75,8 @@ export function Orders() {
             </TableHeader>
 
             <TableBody>
+              {isLoadingOrders && <OrderTableSkeleton />}
+
               {result &&
                 result.orders.map((order) => (
                   <OrderTableRow key={order.orderId} order={order} />
