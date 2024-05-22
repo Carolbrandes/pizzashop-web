@@ -1,0 +1,1 @@
+after installation of msw, we have to init with command yarn msw init public
