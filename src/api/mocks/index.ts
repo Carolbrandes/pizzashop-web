@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { setupWorker } from "msw/browser";
+import { getDailyRevenueInPeriodMock } from "./get-daily-revenue-in-period-mock";
 import { getDayOrdersAmountMock } from "./get-day-orders-amount";
 import { getMonthCanceledOrdersAmountMock } from "./get-month-canceled-orders-amount";
 import { getMonthOrdersAmountMock } from "./get-month-orders-amount";
@@ -12,6 +13,7 @@ export const worker = setupWorker(
   signInMock,
   registerRestaurantMock,
   getDayOrdersAmountMock,
+  getDailyRevenueInPeriodMock,
   getMonthOrdersAmountMock,
   getMonthCanceledOrdersAmountMock,
   getMonthRevenueMock,
