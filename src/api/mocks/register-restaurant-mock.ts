@@ -1,22 +1,19 @@
 import { http, HttpResponse } from "msw";
-import { SignInBody } from "../sign-in";
+import { RegisterRestaurantBody } from "../register-restaurant";
 
 //* every time this request is called with body equal to null, it will return status 401
 //* the first parameter in http.post is the type of params (in our case we don't use so we put never), the second is type of request body and the third is the type of response
-export const signInMock = http.post<never, SignInBody>(
-  "/authenticate",
+export const registerRestaurantMock = http.post<never, RegisterRestaurantBody>(
+  "/restaurants",
   async ({ request }) => {
-    const { email } = await request.json();
+    const { restaurantName } = await request.json();
 
-    if (email === "johndoe@example.com") {
+    if (restaurantName === "Pizza Shop") {
       return new HttpResponse(null, {
-        status: 200,
-        headers: {
-          "Set-Cookie": "auth=sample-jwt",
-        },
+        status: 201,
       });
     }
 
-    return new HttpResponse(null, { status: 401 });
+    return new HttpResponse(null, { status: 400 });
   },
 );
