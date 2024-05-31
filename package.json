@@ -42,6 +42,7 @@
     "zod": "^3.22.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.44.1",
     "@rocketseat/eslint-config": "^2.2.2",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
