@@ -15,7 +15,7 @@ test("sign in successfully", async ({ page }) => {
 
   expect(toast).toBeVisible();
 
-  await page.waitForTimeout(2000); //* in playwright is normal the last screen be white, so we can use this hack.
+  // await page.waitForTimeout(2000); //* in playwright is normal the last screen be white, so we can use this hack.
 });
 
 test("sign in with wrong credentials", async ({ page }) => {
@@ -23,7 +23,7 @@ test("sign in with wrong credentials", async ({ page }) => {
   await page.getByLabel("Seu e-mail").fill("wrong@example.com");
   await page.getByRole("button", { name: "Acessar Painel" }).click();
 
-  const toast = page.getByText("Credenciais inválidas.");
+  const toast = page.getByText("Credenciais inválidas");
 
   expect(toast).toBeVisible();
 });

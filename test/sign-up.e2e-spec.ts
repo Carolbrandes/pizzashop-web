@@ -6,7 +6,7 @@ test("sign up successfully", async ({ page }) => {
   //* to get the elements (ex: email's input) click on locator tab and then click in left button (circle, pick locator) and copy.
 
   await page.goto("/sign-up", { waitUntil: "networkidle" });
-  await page.getByLabel("Nome do estabelecimento").fill("Pizza shop");
+  await page.getByLabel("Nome do estabelecimento").fill("Pizza Shop");
   await page.getByLabel("Seu nome").fill("John Doe");
   await page.getByLabel("Seu e-mail").fill("johndoe@example.com");
   await page.getByLabel("Seu celular").fill("12374849849485");
