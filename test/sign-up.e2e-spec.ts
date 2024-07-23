@@ -15,7 +15,7 @@ test("sign up successfully", async ({ page }) => {
 
   const toast = page.getByText("Restaurante cadastrado com sucesso");
 
-  expect(toast).toBeVisible();
+  await expect(toast).toBeVisible();
 
   await page.waitForTimeout(2000); //* in playwright is normal the last screen be white, so we can use this hack.
 });
@@ -32,7 +32,7 @@ test("sign up with error", async ({ page }) => {
 
   const toast = page.getByText("Erro ao cadastrar restaurante.");
 
-  expect(toast).toBeVisible();
+  await expect(toast).toBeVisible();
 
   await page.waitForTimeout(2000); //* in playwright is normal the last screen be white, so we can use this hack.
 });

@@ -13,7 +13,7 @@ test("sign in successfully", async ({ page }) => {
     "Enviamos um link de autenticação para seu e-mail.",
   );
 
-  expect(toast).toBeVisible();
+  await expect(toast).toBeVisible();
 
   // await page.waitForTimeout(2000); //* in playwright is normal the last screen be white, so we can use this hack.
 });
@@ -25,7 +25,7 @@ test("sign in with wrong credentials", async ({ page }) => {
 
   const toast = page.getByText("Credenciais inválidas");
 
-  expect(toast).toBeVisible();
+  await expect(toast).toBeVisible();
 });
 
 test("navigate to new restaurant page", async ({ page }) => {

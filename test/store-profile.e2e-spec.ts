@@ -13,12 +13,12 @@ test("update profile successfuly", async ({ page }) => {
 
   await page.waitForLoadState("networkidle"); //*it will wait all requests end
 
-  await page.waitForTimeout(250);
-
   const toast = page.getByText("Perfil atualizado com sucesso!");
-  expect(toast).toBeVisible(); //* when use toBeVisible if an element on the page is on top of the element we selected, the test will fail.
+
+  //* when expect an element to be visible we can use the await before expect
+  await expect(toast).toBeVisible(); //* when use toBeVisible if an element on the page is on top of the element we selected, the test will fail.
 
   await page.getByRole("button", { name: "Close" }).click();
-  await page.waitForTimeout(250);
-  expect(page.getByRole("button", { name: "Rocket Pizza" })).toBeVisible();
+
+  await expect(page.getByRole("button", { name: "Rocket Pizza" })).toBeVisible();
 });
